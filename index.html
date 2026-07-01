@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nova Era Games</title>
+  <style>
+    :root {
+      --bg: #060816;
+      --panel: rgba(11, 19, 37, 0.9);
+      --line: rgba(92, 255, 232, 0.18);
+      --text: #e9f7ff;
+      --muted: #8ea5bf;
+      --cyan: #38f7ff;
+      --violet: #8b5cff;
+      --pink: #ff4fd8;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(56,247,255,0.18), transparent 24%),
+        radial-gradient(circle at top right, rgba(255,79,216,0.16), transparent 22%),
+        linear-gradient(135deg, #03050b 0%, var(--bg) 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
+      pointer-events: none;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 24px 0 60px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      backdrop-filter: blur(18px);
+      box-shadow: 0 0 40px rgba(56,247,255,0.08);
+    }
+
+    .brand {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cyan);
+    }
+
+    .nav a {
+      color: var(--muted);
+      margin-left: 16px;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .nav a:hover { color: var(--text); }
+
+    .hero {
+      margin-top: 24px;
+      padding: 34px;
+      background: linear-gradient(120deg, rgba(56,247,255,0.12), rgba(139,92,255,0.13));
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      box-shadow: 0 0 60px rgba(56,247,255,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.8rem, 3vw, 2.7rem);
+      margin: 0 0 10px;
+      line-height: 1.1;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.02rem;
+      max-width: 760px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      color: var(--cyan);
+      font-size: 0.9rem;
+      margin-bottom: 14px;
+      border: 1px solid rgba(56,247,255,0.22);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      color: white;
+      background: linear-gradient(90deg, var(--cyan), var(--violet));
+      font-weight: 700;
+      box-shadow: 0 10px 30px rgba(56,247,255,0.18);
+      transition: transform 0.2s ease;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .section {
+      margin-top: 28px;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 1.2rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #c5dcff;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 18px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+
+    .card h3 {
+      margin: 6px 0 8px;
+      font-size: 1.05rem;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .tag {
+      display: inline-block;
+      margin-bottom: 8px;
+      color: var(--pink);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .feature {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .feature .card {
+      min-height: 100%;
+    }
+
+    .review-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .review-item {
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .review-item strong { color: #f2f6ff; }
+
+    .footer {
+      margin-top: 28px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 900px) {
+      .cards, .feature {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="topbar">
+      <div class="brand">Nova Era Games</div>
+      <nav class="nav">
+        <a href="#inicio">Início</a>
+        <a href="#resenhas">Resenhas</a>
+        <a href="#sobre">Sobre</a>
+      </nav>
+    </header>
+
+    <section class="hero" id="inicio">
+      <span class="pill">Portal de resenhas gamer</span>
+      <h1>Seu espaço para descobrir, jogar e comentar os melhores games.</h1>
+      <p>Este site foi criado para mostrar suas resenhas com um visual moderno, futurista e elegante, perfeito para quem ama games e quer compartilhar opiniões com estilo.</p>
+      <a class="btn" href="#resenhas">Ver resenhas</a>
+    </section>
+
+    <section class="section" id="resenhas">
+      <div class="section-title">
+        <h2>Jogos em destaque</h2>
+        <span class="pill">Escolhas do mês</span>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <span class="tag">Ação</span>
+          <h3>Hollow Knight</h3>
+          <p>Uma experiência de plataforma impecável, com atmosfera única e um desafio que conquista desde o início.</p>
+        </article>
+        <article class="card">
+          <span class="tag">RPG</span>
+          <h3>Cyberpunk 2077</h3>
+          <p>Um mundo futurista cheio de detalhes, narrativas fortes e muita imersão tecnológica.</p>
+        </article>
+        <article class="card">
+          <span class="tag">Estratégia</span>
+          <h3>Hades</h3>
+          <p>Comb uma jogabilidade fluida e muita personalidade, é um jogo que vale cada minuto de play.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section feature" id="sobre">
+      <article class="card">
+        <span class="tag">Sobre o projeto</span>
+        <h3>Uma identidade visual forte para suas opiniões</h3>
+        <p>O layout foi pensado para passar uma sensação de tecnologia, futurismo e sofisticação, com cores neon, linhas geométricas e uma estrutura limpa para destacar suas resenhas.</p>
+      </article>
+      <article class="card">
+        <span class="tag">Últimas impressões</span>
+        <div class="review-list">
+          <div class="review-item"><strong>Stardew Valley</strong> — relaxante e encantador.</div>
+          <div class="review-item"><strong>Valorant</strong> — competitivo e muito estratégico.</div>
+          <div class="review-item"><strong>Minecraft</strong> — criativo e infinito.</div>
+        </div>
+      </article>
+    </section>
+
+    <div class="footer">
+      Desenvolvido para ser seu espaço de resenhas em estilo futurista.
+    </div>
+  </div>
+</body>
+</html>
